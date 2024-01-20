@@ -177,6 +177,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: ts-food-delivery-service
+spec:
+  ports:
+    - name: http
+      port: 18957
+  selector:
+    app: ts-food-delivery-service
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: ts-food-service
 spec:
   ports:
@@ -485,3 +496,14 @@ spec:
       nodePort: 32677
   selector:
     app: ts-ui-dashboard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-wait-order-service
+spec:
+  ports:
+    - name: http
+      port: 17525
+  selector:
+    app: ts-wait-order-service
