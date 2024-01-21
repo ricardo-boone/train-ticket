@@ -93,6 +93,11 @@ spring:
           predicates:
             - Path=/api/v1/executeservice/**
 
+        - id: food-delivery
+          uri: lb://${FOOD_DELIVERY_SERVICE_HOST:ts-food-delivery-service}
+          predicates:
+            - Path=/api/v1/fooddeliveryservice/**
+
         - id: food
           uri: lb://${FOOD_SERVICE_HOST:ts-food-service}
           predicates:
@@ -207,3 +212,8 @@ spring:
           uri: lb://${VERIFICATION_CODE_SERVICE_HOST:ts-verification-code-service}
           predicates:
             - Path=/api/v1/verifycode/**
+
+        - id: waiting
+          uri: lb://${WAIT_ORDER_SERVICE_SERVICE_HOST:ts-wait-order-service}
+          predicates:
+            - Path=/api/v1/waitorderservice/**
