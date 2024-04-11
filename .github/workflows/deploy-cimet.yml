@@ -1,0 +1,46 @@
+name: Build and Extract
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master'
+
+jobs:
+  build-and-extract:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Maven
+        run: sudo apt-get install -y maven
+
+      - name: Clone cimet Repository
+        run: git clone https://github.com/umidmuzrapov2/cimet tool
+        working-directory: ./  # Clone into the root directory
+
+      - name: Build cimet with Maven
+        run: mvn clean install -DskipTests
+        working-directory: ./tool
+
+      - name: Compile and Run RestExtraction.java
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.RestExtraction"
+        working-directory: ./tool
+        
+      - name: Compile and Run DeltaExtraction.java
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="./repos/train-ticket-microservices"
+        working-directory: ./tool
+
+      - name: Save out folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: changed-files-diff
+          path: ./tool/out
