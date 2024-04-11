@@ -7,7 +7,7 @@ on:
     branches:
       - 'master'
 
-env:
+env: # These will be used in the future for making the script simpler
   base-branch: 'master' # same as above
   source-branch: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
 
