@@ -7,6 +7,10 @@ on:
     branches:
       - 'master'
 
+env:
+  base-branch: 'master' # same as above
+  source-branch: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
+
 jobs:
   build-and-extract:
     runs-on: ubuntu-latest
