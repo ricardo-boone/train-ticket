@@ -1,11 +1,6 @@
 name: Git Actions Test
 
-on:
-  pull_request:
-    types:
-      - opened
-    branches:
-      - 'master'
+on: workflow_dispatch
 
 env:
   branch: 'master' # same as above
