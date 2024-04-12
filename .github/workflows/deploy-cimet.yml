@@ -50,7 +50,7 @@ jobs:
         working-directory: ./tool
 
       - name: Get Delta Path
-        run: echo "DELTA_OUTPUT_FILE=$(ls ./tool/out/delta-changes*.json)" >> "$GITHUB_ENV"
+        run: echo "DELTA_OUTPUT_FILE=$(ls ./out/delta-changes*.json)" >> "$GITHUB_ENV"
         working-directory: ./tool
 
       - name: Test
