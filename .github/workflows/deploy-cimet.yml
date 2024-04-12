@@ -42,7 +42,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="$source-branch ./repos/train-ticket-microservices"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="master ./repos/train-ticket-microservices"
         working-directory: ./tool
 
       - name: Save out folder
