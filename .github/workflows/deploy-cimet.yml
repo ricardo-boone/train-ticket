@@ -57,7 +57,7 @@ jobs:
         run: echo "$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
 
       - name: Compile and Run DeltaMerge.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab..intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
         working-directory: ./tool
 
       - name: Save out folder
