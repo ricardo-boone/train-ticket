@@ -10,7 +10,8 @@ on: workflow_dispatch
 
 env: # These will be used in the future for making the script simpler
   base-branch: 'master' # same as above
-  source-branch: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
+  source-branch: 'master'
+  # source-branch: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
 
 jobs:
   build-and-extract:
