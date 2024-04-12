@@ -40,9 +40,22 @@ jobs:
       - name: Compile and Run RestExtraction.java
         run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.RestExtraction"
         working-directory: ./tool
+
+      - name: Get IR Path
+        run: echo "ls ./out/delta-changes*.json >> $IR_OUTPUT_FILE"
         
       - name: Compile and Run DeltaExtraction.java
         run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="master ./repos/train-ticket-microservices"
+        working-directory: ./tool
+
+      - name: Get Delta Path
+        run: echo "ls ./out/rest-extraction-output*.json >> $DELTA_OUTPUT_FILE"
+
+      - name: Test
+        run: echo $IR_OUTPUT_FILE
+
+      - name: Compile and Run DeltaExtraction.java
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab..intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
         working-directory: ./tool
 
       - name: Save out folder
