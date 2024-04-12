@@ -42,14 +42,14 @@ jobs:
         working-directory: ./tool
 
       - name: Get IR Path
-        run: ls ./out/delta-changes*.json >> $IR_OUTPUT_FILE
+        run: echo "IR_OUTPUT_FILE=$(ls ./out/delta-changes*.json)" >> "$GITHUB_ENV"
         
       - name: Compile and Run DeltaExtraction.java
         run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="master ./repos/train-ticket-microservices"
         working-directory: ./tool
 
       - name: Get Delta Path
-        run: ls ./out/rest-extraction-output*.json >> $DELTA_OUTPUT_FILE
+        run: echo "DELTA_OUTPUT_FILE=$(ls ./out/delta-changes*.json)" >> "$GITHUB_ENV"
 
       - name: Test
         run: echo $IR_OUTPUT_FILE
