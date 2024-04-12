@@ -1,11 +1,12 @@
 name: Build and Extract
 
-on:
-  pull_request:
-    types:
-      - opened
-    branches:
-      - 'master'
+on: workflow_dispatch
+# on:
+#   pull_request:
+#     types:
+#       - opened
+#     branches:
+#       - 'master'
 
 env: # These will be used in the future for making the script simpler
   base-branch: 'master' # same as above
