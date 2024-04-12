@@ -1,6 +1,9 @@
 name: Build and Extract
 
+# Use for manual running
 on: workflow_dispatch
+
+# Use this for pull request
 # on:
 #   pull_request:
 #     types:
@@ -9,9 +12,9 @@ on: workflow_dispatch
 #       - 'master'
 
 env: # These will be used in the future for making the script simpler
-  base-branch: 'master' # same as above
-  source-branch: 'master'
-  # source-branch: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
+  BASE_BRANCH: 'master' # same as above
+  SOURCE_BRANCH: 'master'
+  # SOURCE_BRANCH: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
 
 jobs:
   build-and-extract:
@@ -49,13 +52,17 @@ jobs:
         run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="master ./repos/train-ticket-microservices"
         working-directory: ./tool
 
+      - name: test
+        run: echo "$BASE_BRANCH"
+
       - name: Get Delta Path
         run: echo "DELTA_OUTPUT_FILE=$(ls ./out/delta-changes*.json)" >> "$GITHUB_ENV"
         working-directory: ./tool
 
-      - name: Compile and Run DeltaMerge.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
-        working-directory: ./tool
+      # There are problems with Delta Merge at the moment but it is ready to run
+      # - name: Compile and Run DeltaMerge.java
+      #   run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
+      #   working-directory: ./tool
 
       - name: Save out folder
         uses: actions/upload-artifact@v2
