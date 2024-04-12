@@ -51,9 +51,10 @@ jobs:
 
       - name: Get Delta Path
         run: echo "DELTA_OUTPUT_FILE=$(ls ./tool/out/delta-changes*.json)" >> "$GITHUB_ENV"
+        working-directory: ./tool
 
       - name: Test
-        run: echo $IR_OUTPUT_FILE
+        run: echo "$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
 
       - name: Compile and Run DeltaMerge.java
         run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab..intermediate.merge.IRMergeRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
