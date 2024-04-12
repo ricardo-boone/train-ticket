@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get install -y maven
 
       - name: Clone cimet Repository
-        run: git clone https://github.com/umidmuzrapov2/cimet tool
+        run: git clone https://github.com/cloudhubs/cimet tool
         working-directory: ./  # Clone into the root directory
 
       - name: Build cimet with Maven
@@ -40,7 +40,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="./repos/train-ticket-microservices"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.deltas.DeltaExtraction" -Dexec.args="$source-branch ./repos/train-ticket-microservices"
         working-directory: ./tool
 
       - name: Save out folder
