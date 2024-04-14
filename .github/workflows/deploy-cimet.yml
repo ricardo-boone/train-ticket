@@ -40,8 +40,13 @@ jobs:
         run: mvn clean install -DskipTests
         working-directory: ./tool
 
+      - name: Get Cimet Config
+        env:
+          CIMET_CONFIG: ${{ vars.CIMET_CONFIG }}
+        run: echo "$CIMET_CONFIG" >> "./tool/cimet-config.json"
+
       - name: Compile and Run RestExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.RestExtraction"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.RestExtraction" -Dexec.args="cimet-config.json"
         working-directory: ./tool
 
       - name: Get IR Path
