@@ -46,7 +46,7 @@ jobs:
         run: echo "$CIMET_CONFIG" >> "./tool/cimet-config.json"
 
       - name: Compile and Run RestExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.RestExtraction" -Dexec.args="cimet-config.json"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.intermediate.create.IRExtraction" -Dexec.args="cimet-config.json"
         working-directory: ./tool
 
       - name: Get IR Path
