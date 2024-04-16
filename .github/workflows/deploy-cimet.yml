@@ -29,7 +29,7 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_EMV"
+        run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_ENV"
         id: extract_branch
 
       - name: Install Maven
