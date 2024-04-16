@@ -11,11 +11,6 @@ on:
     branches:
       - 'master'
 
-env: # These will be used in the future for making the script simpler
-  BASE_BRANCH: 'master' # same as above
-  # SOURCE_BRANCH: 'master'
-  SOURCE_BRANCH: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
-
 jobs:
   build-and-extract:
     runs-on: ubuntu-latest
@@ -31,6 +26,11 @@ jobs:
 
       - name: Test
         run: echo "$SOURCE_BRANCH"
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_EMV"
+        id: extract_branch
 
       - name: Install Maven
         run: sudo apt-get install -y maven
@@ -57,7 +57,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$SOURCE_BRANCH ./repos/train-ticket-microservices"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$BRANCH ./repos/train-ticket-microservices"
         working-directory: ./tool
 
       - name: Get Delta Path
