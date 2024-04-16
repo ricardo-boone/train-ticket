@@ -45,37 +45,38 @@ public class ConsignServiceImpl implements ConsignService {
 
     @Override
     public Response insertConsignRecord(Consign consignRequest, HttpHeaders headers) {
-        ConsignServiceImpl.LOGGER.info("[insertConsignRecord][Insert Start][consignRequest.getOrderId: {}]", consignRequest.getOrderId());
-
-        ConsignRecord consignRecord = new ConsignRecord();
-        //Set the record attribute
-        consignRecord.setId(UUID.randomUUID().toString());
-        consignRecord.setOrderId(consignRequest.getOrderId().toString());
-        consignRecord.setAccountId(consignRequest.getAccountId().toString());
-        ConsignServiceImpl.LOGGER.info("[insertConsignRecord][Insert Info][handle date: {}, target date: {}]", consignRequest.getHandleDate(), consignRequest.getTargetDate());
-        consignRecord.setHandleDate(consignRequest.getHandleDate());
-        consignRecord.setTargetDate(consignRequest.getTargetDate());
-        consignRecord.setFrom(consignRequest.getFrom());
-        consignRecord.setTo(consignRequest.getTo());
-        consignRecord.setConsignee(consignRequest.getConsignee());
-        consignRecord.setPhone(consignRequest.getPhone());
-        consignRecord.setWeight(consignRequest.getWeight());
-
-        //get the price
-        HttpEntity requestEntity = new HttpEntity(null, headers);
-        String consign_price_service_url = getServiceUrl("ts-consign-price-service");
-        ResponseEntity<Response<Double>> re = restTemplate.exchange(
-                consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<Double>>() {
-                });
-        consignRecord.setPrice(re.getBody().getData());
-
-        LOGGER.info("[insertConsignRecord][SAVE consign info][consignRecord : {}]", consignRecord.toString());
-        ConsignRecord result = repository.save(consignRecord);
-        LOGGER.info("[insertConsignRecord][SAVE consign result][result: {}]", result.toString());
-        return new Response<>(1, "You have consigned successfully! The price is " + result.getPrice(), result);
+//        ConsignServiceImpl.LOGGER.info("[insertConsignRecord][Insert Start][consignRequest.getOrderId: {}]", consignRequest.getOrderId());
+//
+//        ConsignRecord consignRecord = new ConsignRecord();
+//        //Set the record attribute
+//        consignRecord.setId(UUID.randomUUID().toString());
+//        consignRecord.setOrderId(consignRequest.getOrderId().toString());
+//        consignRecord.setAccountId(consignRequest.getAccountId().toString());
+//        ConsignServiceImpl.LOGGER.info("[insertConsignRecord][Insert Info][handle date: {}, target date: {}]", consignRequest.getHandleDate(), consignRequest.getTargetDate());
+//        consignRecord.setHandleDate(consignRequest.getHandleDate());
+//        consignRecord.setTargetDate(consignRequest.getTargetDate());
+//        consignRecord.setFrom(consignRequest.getFrom());
+//        consignRecord.setTo(consignRequest.getTo());
+//        consignRecord.setConsignee(consignRequest.getConsignee());
+//        consignRecord.setPhone(consignRequest.getPhone());
+//        consignRecord.setWeight(consignRequest.getWeight());
+//
+//        //get the price
+//        HttpEntity requestEntity = new HttpEntity(null, headers);
+//        String consign_price_service_url = getServiceUrl("ts-consign-price-service");
+//        ResponseEntity<Response<Double>> re = restTemplate.exchange(
+//                consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
+//                HttpMethod.GET,
+//                requestEntity,
+//                new ParameterizedTypeReference<Response<Double>>() {
+//                });
+//        consignRecord.setPrice(re.getBody().getData());
+//
+//        LOGGER.info("[insertConsignRecord][SAVE consign info][consignRecord : {}]", consignRecord.toString());
+//        ConsignRecord result = repository.save(consignRecord);
+//        LOGGER.info("[insertConsignRecord][SAVE consign result][result: {}]", result.toString());
+//        return new Response<>(1, "You have consigned successfully! The price is " + result.getPrice(), result);
+        return new Response<>(1, "Hi", null);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class ConsignServiceImpl implements ConsignService {
             HttpEntity requestEntity = new HttpEntity<>(null, headers);
             String consign_price_service_url = getServiceUrl("ts-consign-price-service");
             ResponseEntity<Response<Double>> re = restTemplate.exchange(
-                    consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
+                    consign_price_service_url + "/api/v1/cancelservice/cancel/refund/" + consignRequest.getWeight(),
                     HttpMethod.GET,
                     requestEntity,
                     new ParameterizedTypeReference<Response<Double>>() {
