@@ -1,20 +1,20 @@
 name: Build and Extract
 
 # Use for manual running
-on: workflow_dispatch
+# on: workflow_dispatch
 
 # Use this for pull request
-# on:
-#   pull_request:
-#     types:
-#       - opened
-#     branches:
-#       - 'master'
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master'
 
 env: # These will be used in the future for making the script simpler
   BASE_BRANCH: 'master' # same as above
-  SOURCE_BRANCH: 'master'
-  # SOURCE_BRANCH: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
+  # SOURCE_BRANCH: 'master'
+  SOURCE_BRANCH: '${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}' # Head Branch
 
 jobs:
   build-and-extract:
@@ -28,6 +28,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: Test
+        env:
+          SOURCE_BRANCH: $SOURCE_BRANCH
+        run: echo "$SOURCE_BRANCH"
 
       - name: Install Maven
         run: sudo apt-get install -y maven
