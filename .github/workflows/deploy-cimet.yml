@@ -29,9 +29,6 @@ jobs:
         run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_ENV"
         id: extract_branch
 
-      - name: Test
-        run: echo "$BRANCH"
-
       - name: Install Maven
         run: sudo apt-get install -y maven
 
