@@ -54,7 +54,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$BRANCH ./repos/train-ticket-microservices"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$BRANCH ./repos/train-ticket"
         working-directory: ./tool
 
       - name: Get Delta Path
