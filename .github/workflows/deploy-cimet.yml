@@ -30,8 +30,6 @@ jobs:
           cache: maven
 
       - name: Test
-        env:
-          SOURCE_BRANCH: $SOURCE_BRANCH
         run: echo "$SOURCE_BRANCH"
 
       - name: Install Maven
@@ -59,7 +57,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="main ./repos/train-ticket-microservices"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$SOURCE_BRANCH ./repos/train-ticket-microservices"
         working-directory: ./tool
 
       - name: Get Delta Path
