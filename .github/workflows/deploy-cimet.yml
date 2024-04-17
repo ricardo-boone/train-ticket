@@ -26,8 +26,13 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_ENV"
-        id: extract_branch
+        run: echo "SOURCE_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_ENV"
+        id: extract_source_branch
+
+      - name: Store base branch name
+        shell: bash
+        run: echo "BASE_BRANCH=master" >> "$GITHUB_ENV"
+        id: extract_base_branch
 
       - name: Install Maven
         run: sudo apt-get install -y maven
@@ -54,7 +59,7 @@ jobs:
         working-directory: ./tool
         
       - name: Compile and Run DeltaExtraction.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$BRANCH ./repos/train-ticket"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.delta.DeltaExtraction" -Dexec.args="$SOURCE_BRANCH ./repos/train-ticket"
         working-directory: ./tool
 
       - name: Get Delta Path
@@ -66,7 +71,7 @@ jobs:
         working-directory: ./tool
 
       - name: Compile and Run ReportRunner.java
-        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.report.ReportRunner" -Dexec.args="$IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
+        run: mvn exec:java -Dexec.mainClass="edu.university.ecs.lab.report.ReportRunner" -Dexec.args="$BASE_BRANCH $SOURCE_BRANCH $IR_OUTPUT_FILE $DELTA_OUTPUT_FILE"
         working-directory: ./tool
 
       - name: Save out folder
