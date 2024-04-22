@@ -1,9 +1,11 @@
 name: Git Actions Test
 
-on: workflow_dispatch
-
-env:
-  branch: 'master' # same as above
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master' #Change this
 
 jobs:
   greeting_job:
@@ -14,5 +16,13 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+        run: echo "SOURCE=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
         id: extract_branch
+
+      - name: Extract base
+        shell: bash
+        run: echo "BASE=${GITHUB_BASE_REF}
+
+      - name: Test
+        shell: bash
+        run: echo "$BASE -> $SOURCE"
