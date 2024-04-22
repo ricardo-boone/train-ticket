@@ -21,7 +21,7 @@ jobs:
 
       - name: Extract base
         shell: bash
-        run: echo "BASE=${GITHUB_BASE_REF}
+        run: echo "BASE=${GITHUB_BASE_REF}"
 
       - name: Test
         shell: bash
