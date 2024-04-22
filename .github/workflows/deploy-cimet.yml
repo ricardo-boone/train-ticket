@@ -1,15 +1,11 @@
-name: Build and Extract
+name: CIMET Workflow
 
-# Use for manual running
-# on: workflow_dispatch
-
-# Use this for pull request
 on:
   pull_request:
     types:
       - opened
     branches:
-      - 'master'
+      - 'master' # Change This
 
 jobs:
   build-and-extract:
@@ -24,14 +20,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Extract branch name
+      - name: Extract Source Branch Name
         shell: bash
         run: echo "SOURCE_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_ENV"
         id: extract_source_branch
 
-      - name: Store base branch name
+      - name: Extract Source Branch Name
         shell: bash
-        run: echo "BASE_BRANCH=master" >> "$GITHUB_ENV"
+        run: echo "BASE_BRANCH=${GITHUB_BASE_REF}" >> "$GITHUB_ENV"
         id: extract_base_branch
 
       - name: Install Maven
