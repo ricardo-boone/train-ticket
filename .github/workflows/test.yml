@@ -26,3 +26,9 @@ jobs:
       - name: Test
         shell: bash
         run: echo "$BASE -> $SOURCE"
+
+      - name: Print source branch
+        run: echo "Source branch ${{ github.event.pull_request.head.ref }}"
+
+      - name: Print base branch
+        run: echo "Base branch ${{ github.event.pull_request.base.ref }}"
