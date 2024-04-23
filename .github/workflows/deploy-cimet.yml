@@ -1,11 +1,11 @@
-name: CIMET Workflow
+name: CIMET (Change Impact Microservice Evolution Tool)
 
 on:
   pull_request:
     types:
       - opened
     branches:
-      - 'master' # Change This
+      - 'master' # <-- Change Base Pull Request Branch Here
 
 jobs:
   build-and-extract:
