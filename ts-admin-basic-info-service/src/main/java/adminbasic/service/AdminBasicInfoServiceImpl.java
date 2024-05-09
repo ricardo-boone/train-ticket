@@ -104,7 +104,7 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService {
         String stations = station_service_url + "/api/v1/stationservice/stations";
         ResponseEntity<Response> re = restTemplate.exchange(
                 stations,
-                HttpMethod.GET,
+                HttpMethod.POST,
                 requestEntity,
                 Response.class);
 
